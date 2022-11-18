@@ -1,5 +1,5 @@
 {
-  "name": "@gouvminint/vue-dsfr",
+  "name": "@thales/vue-dsfr",
   "version": "1.0.0",
   "files": [
     "dist",
@@ -30,8 +30,7 @@
     }
   },
   "publishConfig": {
-    "@gouvminint:registry": "https://registry.npmjs.com",
-    "access": "public"
+    "registry": "http://localhost:8081/repository/npm-private/"
   },
   "scripts": {
     "docs:dev": "vuepress dev docs",
@@ -71,6 +70,7 @@
     "focus-trap": "~6.7.0",
     "focus-trap-vue": "^3.3.1",
     "oh-vue-icons": "1.0.0-rc3",
+    "rollup": "^3.3.0",
     "vue": "^3.2.39"
   },
   "devDependencies": {

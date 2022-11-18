@@ -13,7 +13,7 @@ COPY ./package.json ./package-lock.json ./
 
 RUN npm config set proxy $HTTP
 RUN npm config set https-proxy $HTTP
-RUN npm config set strict-ssl=false 
+RUN npm config set strict-ssl=false
 RUN npm config set registry=http://registry.npmjs.com
 
 RUN npm ping --registry http://registry.npmjs.com
@@ -21,7 +21,7 @@ RUN npm config get proxy
 
 RUN npm i
 
-COPY ./build-css.mjs ./index.html ./postcss.config.js ./rollup.config.js ./vite.config.js ./.browserslistrc ./
+COPY ./build-css.mjs ./index.html ./postcss.config.js ./rollup.config.mjs ./vite.config.js ./.browserslistrc ./
 COPY ./src ./src
 COPY ./public ./public
 COPY ./.storybook ./.storybook
