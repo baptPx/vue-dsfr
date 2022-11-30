@@ -15,15 +15,15 @@ export default defineComponent({
     },
     title: {
       type: String,
-      default: 'Simple title',
+      default: '',
     },
     description: {
       type: String,
-      default: 'Simple description',
+      default: '',
     },
     detail: {
       type: String,
-      default: 'details',
+      default: '',
     },
     altImg: {
       type: String,
@@ -62,17 +62,17 @@ export default defineComponent({
           data-testid="card-link"
           @click="$event.stopPropagation()"
         >
-          {{ title }}
+          <h3 v-if="title">{{ title }}</h3>
         </router-link>
       </h4>
-      <p class="fr-card__desc">
+      <p class="fr-card__desc" v-if="description">
         {{ description }}
       </p>
-      <p class="fr-card__detail">
+      <p class="fr-card__detail" v-if="detail">
         {{ detail }}
       </p>
     </div>
-    <div class="fr-card__img">
+    <div class="fr-card__img" v-if="imgSrc">
       <img
         :src="imgSrc"
         class="fr-responsive-img"

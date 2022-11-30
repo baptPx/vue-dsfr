@@ -21,12 +21,6 @@ export default defineComponent({
       default: () => [{ text: '' }],
     },
   },
-
-  data () {
-    return {
-      hideButton: false,
-    }
-  },
 })
 </script>
 
@@ -36,19 +30,9 @@ export default defineComponent({
     class="fr-breadcrumb"
     aria-label="vous êtes ici :"
   >
-    <button
-      v-show="!hideButton"
-      class="fr-breadcrumb__button"
-      :aria-expanded="hideButton"
-      :aria-controls="breadcrumbId"
-      @click="hideButton = !hideButton"
-    >
-      Voir le fil d’Ariane
-    </button>
     <div
       :id="breadcrumbId"
       class="fr-collapse"
-      :class="{ 'fr-collapse--expanded': hideButton }"
     >
       <ol class="fr-breadcrumb__list">
         <li

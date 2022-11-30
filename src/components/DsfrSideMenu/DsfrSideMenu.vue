@@ -8,7 +8,7 @@ import DsfrSideMenuList from './DsfrSideMenuList.vue'
 defineProps({
   buttonLabel: {
     type: String,
-    default: 'Dans cette rubrique',
+    default: '',
   },
   id: {
     type: String,
@@ -22,7 +22,7 @@ defineProps({
   },
   headingTitle: {
     type: String,
-    default: 'Titre de la rubrique',
+    default: '',
   },
 })
 
@@ -46,7 +46,7 @@ defineEmits(['toggle-expand'])
         :id="id"
         class="fr-collapse"
       >
-        <div class="fr-sidemenu__title">
+        <div class="fr-sidemenu__title" v-if="headingTitle.length>0">
           {{ headingTitle }}
         </div>
         <!-- @slot Slot par défaut du contenu du menu latéral -->

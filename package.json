@@ -1,6 +1,6 @@
 {
   "name": "@thales/vue-dsfr",
-  "version": "1.0.0",
+  "version": "1.0.13",
   "files": [
     "dist",
     "types",
@@ -30,7 +30,7 @@
     }
   },
   "publishConfig": {
-    "registry": "http://localhost:8081/repository/npm-private/"
+    "registry": "http://localhost:8081/repository/npm-private"
   },
   "scripts": {
     "docs:dev": "vuepress dev docs",
@@ -54,7 +54,7 @@
     "test:ct-ci": "cypress run --component",
     "format": "npm run lint -- --fix",
     "lint": "eslint ./src/**/*.{vue,js}",
-    "storybook": "cross-env NODE_OPTIONS=--openssl-legacy-provider start-storybook -p 6006",
+    "storybook": "cross-env start-storybook -p 6006",
     "build-storybook": "NODE_OPTIONS=--openssl-legacy-provider build-storybook",
     "preview": "run-s build-storybook",
     "view": "vite serve storybook-static",
