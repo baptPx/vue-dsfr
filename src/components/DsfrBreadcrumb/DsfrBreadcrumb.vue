@@ -32,13 +32,13 @@ export default defineComponent({
   >
     <div
       :id="breadcrumbId"
-      class="fr-collapse"
+      class="fr-collapse fr-collapse--expanded"
     >
       <ol class="fr-breadcrumb__list">
         <li
           v-for="(link, index) in links"
           :key="index"
-          class="fr-breadcrumb__item"
+          class="fr-breadcrumb__item "
           :data-testid="`lis`"
         >
           <component
@@ -62,3 +62,13 @@ export default defineComponent({
 </template>
 
 <style src="@gouvfr/dsfr/dist/component/breadcrumb/breadcrumb.main.min.css" />
+<style>
+@media (min-width: 48em) {
+  .fr-breadcrumb {
+    margin-bottom: 1em;
+  }
+}
+.fr-collapse:not(.fr-collapse--expanded) {
+  visibility: visible;
+}
+</style>
