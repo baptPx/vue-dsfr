@@ -79,6 +79,7 @@ export default defineComponent({
   <component
     :is="is"
     class="fr-btn"
+    :target="isExternalLink ? '_blank' : '_self'"
     v-bind="linkData"
     @click.stop="onClick"
   >
