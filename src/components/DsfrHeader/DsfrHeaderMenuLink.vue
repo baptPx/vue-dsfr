@@ -69,7 +69,7 @@ export default defineComponent({
       return this.to || this.path
     },
     linkData () {
-      return this.actualTo ? { to: this.actualTo } : { href: this.actualHref }
+      return this.actualTo ? { to: this.actualTo } : { href: this.actualHref, target: '_blank' }
     },
   },
 })
@@ -79,7 +79,6 @@ export default defineComponent({
   <component
     :is="is"
     class="fr-btn"
-    :target="isExternalLink ? '_blank' : '_self'"
     v-bind="linkData"
     @click.stop="onClick"
   >
