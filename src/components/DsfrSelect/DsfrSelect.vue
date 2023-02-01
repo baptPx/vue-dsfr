@@ -20,7 +20,7 @@ export default defineComponent({
     },
     label: {
       type: String,
-      default: 'label par défaut du champ select',
+      default: '',
     },
     options: {
       type: Array,
@@ -31,6 +31,10 @@ export default defineComponent({
       default: undefined,
     },
     successMessage: {
+      type: String,
+      default: '',
+    },
+    placeholder: {
       type: String,
       default: '',
     },
@@ -64,7 +68,7 @@ export default defineComponent({
       :for="selectId"
     >
       <!-- @slot Slot pour personnaliser tout le contenu de la balise <label> cf. [DsfrInput](/?path=/story/composants-champ-de-saisie-champ-simple-dsfrinput--champ-avec-label-personnalise). Une **props porte le même nom pour un label simple** (texte sans mise en forme) -->
-      <slot name="label">
+      <slot name="label" v-if="label !== ''">
         {{ label }}
         <!-- @slot Slot pour indiquer que le champ est obligatoire. Par défaut, met une astérisque si `required` est à true (dans un `<span class="required">`) -->
         <slot name="required-tip">
@@ -80,7 +84,7 @@ export default defineComponent({
         class="fr-hint-text"
       >{{ description }}</span>
     </label>
-
+    
     <select
       :id="selectId"
       :class="{ [`fr-select--${messageType}`]: message }"
@@ -90,6 +94,7 @@ export default defineComponent({
       :required="required"
       @change="$emit('update:modelValue', $event.target.value)"
     >
+      <option value="" disabled selected v-if="placeholder !== ''">{{ placeholder }}</option>
       <option
         value=""
         :selected="modelValue == null"

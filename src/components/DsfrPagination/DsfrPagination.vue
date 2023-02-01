@@ -86,21 +86,21 @@ export default defineComponent({
     <ul class="fr-pagination__list">
       <li>
         <a
-          :href="pages[0]?.href"
+          :href="currentPage === 0 ? null : pages[0]?.href"
           class="fr-pagination__link fr-pagination__link--first"
           :title="firstPageTitle"
-          :disabled="currentPage === 0 ? true : null"
+          :disabled="currentPage === 0"
           @click.prevent="tofirstPage()"
         />
       </li>
       <li>
         <a
-          :href="pages[Math.max(currentPage - 1, 0)]?.href"
+          :href="currentPage === 0 ? null : pages[Math.max(currentPage - 1, 0)]?.href"
           class="fr-pagination__link fr-pagination__link--prev fr-pagination__link--lg-label"
           :title="prevPageTitle"
-          :disabled="currentPage === 0 ? true : null"
+          :disabled="currentPage === 0"
           @click.prevent="toPreviousPage()"
-        />
+        >{{ prevPageTitle }}</a>
       </li>
       <li
         v-for="(page, idx) in displayedPages"
@@ -121,19 +121,19 @@ export default defineComponent({
       </li>
       <li>
         <a
-          :href="pages[Math.min(currentPage + 1, pages.length - 1)]?.href"
+          :href="currentPage === pages.length - 1 ? null :pages[Math.min(currentPage + 1, pages.length - 1)]?.href"
           class="fr-pagination__link fr-pagination__link--next fr-pagination__link--lg-label"
           :title="nextPageTitle"
           :disabled="currentPage === pages.length - 1 ? true : null"
           @click.prevent="toNextPage()"
-        />
+        >{{ nextPageTitle }}</a>
       </li>
       <li>
         <a
           class="fr-pagination__link fr-pagination__link--last"
-          :href="pages[pages.length - 1]?.href"
+          :href="currentPage === pages.length - 1 ? null : pages[pages.length - 1]?.href"
           :title="lastPageTitle"
-          :disabled="currentPage === pages.length - 1 ? true : null"
+          :disabled="currentPage === pages.length - 1"
           @click.prevent="toLastPage()"
         />
       </li>

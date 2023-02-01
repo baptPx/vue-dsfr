@@ -87,6 +87,10 @@ export default defineComponent({
       v-if="hint"
       class="fr-hint-text"
     >{{ hint }}</span>
+    <span class="fr-hint-text">
+      <slot name="hint">
+      </slot>
+    </span>
   </label>
 
   <component
@@ -140,5 +144,17 @@ export default defineComponent({
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
+}
+input[type="date"]::-webkit-calendar-picker-indicator {
+    background: transparent;
+    bottom: 0;
+    color: transparent;
+    cursor: pointer;
+    height: auto;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: auto;
 }
 </style>

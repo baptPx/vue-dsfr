@@ -44,12 +44,9 @@ export default defineComponent({
       selectedIndex: this.initialSelectedIndex || 0,
       generatedIds: {},
       asc: true,
-      tabHeight: 0
     }
   },
-  mounted() {
-    this.tabHeight = this.$el.children[1 + this.selectedIndex].offsetHeight
-  },
+
   methods: {
     isSelected (idx) {
       return this.selectedIndex === idx
@@ -66,8 +63,6 @@ export default defineComponent({
       this.asc = idx > this.selectedIndex
       this.selectedIndex = idx
       this.$emit('select-tab', idx)
-      await this.$nextTick()
-      this.tabHeight = this.$el.children[1 + this.selectedIndex].offsetHeight
     },
     async selectPrevious () {
       const newIndex = this.selectedIndex === 0 ? this.tabTitles.length - 1 : this.selectedIndex - 1
@@ -88,10 +83,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <div
-    class="fr-tabs"
-    :style="{'--tabs-height': tabHeight + 'px'}"
-  >
+  <div class="fr-tabs">
     <ul
       class="fr-tabs__list"
       role="tablist"
@@ -136,3 +128,9 @@ export default defineComponent({
 </template>
 
 <style src="@gouvfr/dsfr/dist/component/tab/tab.main.min.css" />
+<style>
+ul {
+  /* border-bottom: 1px solid #e6e6e6; */
+  padding-bottom: 1px !important;
+}
+</style>

@@ -30,6 +30,10 @@ export default defineComponent({
       type: String,
       required: true,
     },
+    secondTitle: {
+      type: String,
+      default: '',
+    },
     icon: {
       type: String,
       default: undefined,
@@ -139,6 +143,7 @@ export default defineComponent({
                     />
                   </span>
                   {{ title }}
+                  <span class="second-title"> {{ secondTitle }}</span>
                 </h1>
                 <!-- @slot Slot par défaut pour le contenu de la liste. Sera dans `<ul class="fr-modal__title">` -->
                 <slot />
@@ -173,5 +178,9 @@ export default defineComponent({
 <style>
 body.modal-open {
   overflow: hidden;
+}
+.second-title {
+  color: #A6A6A6;
+  font-size: 1.2rem;
 }
 </style>

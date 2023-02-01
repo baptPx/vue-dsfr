@@ -29,6 +29,10 @@ export default {
       control: 'text',
       description: 'Titre de la modale',
     },
+    secondTitle: {
+      control: 'text',
+      description: 'Titre secondaire',
+    },
     icon: {
       control: 'text',
       description: 'Icone à afficher au début du titre de la modale',
@@ -68,6 +72,7 @@ export const Modal = (args) => ({
       :is-alert="isAlert"
       :icon="icon"
       :title="title"
+      :secondTitle="secondTitle"
       :origin="$refs.modalOrigin"
       @close="onClose()"
     >
