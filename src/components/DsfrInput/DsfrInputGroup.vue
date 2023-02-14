@@ -44,6 +44,10 @@ export default defineComponent({
       type: String,
       default: undefined,
     },
+    icon: {
+      type: String,
+      default: undefined
+    }, 
     validMessage: {
       type: String,
       default: undefined,
@@ -86,9 +90,16 @@ export default defineComponent({
       :description-id="descriptionId"
       :label-visible="labelVisible"
       :model-value="modelValue"
+      :icon="icon"
       :placeholder="placeholder"
       @update:model-value="$emit('update:modelValue', $event)"
-    />
+    >
+    <template v-slot:hint>
+      <slot name="hint">
+      </slot>
+    </template>
+
+    </DsfrInput>
 
     <p
       v-if="message"

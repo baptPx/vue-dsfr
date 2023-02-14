@@ -1,6 +1,6 @@
 {
   "name": "@thales/vue-dsfr",
-  "version": "1.0.32",
+  "version": "1.0.44",
   "files": [
     "dist",
     "types",
