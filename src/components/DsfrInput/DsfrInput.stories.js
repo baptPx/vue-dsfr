@@ -98,14 +98,14 @@ export const ChampSansLabel = (args) => ({
   },
   template: `
     <DsfrInput
-      :model-value="modelValue"
-      :label="label"
-      :hint="hint"
+      value="123"
       :type="type"
-      :placeholder="placeholder"
-      :label-visible="labelVisible"
-      :disabled="disabled"
-    />
+    >
+    <template v-slot:icon-right>
+    <p>mytINPUT</p>
+      <VIcon name="ri-search-line" class="myicon" style="cursor:pointer;"></VIcon>
+    </template>
+    </DsfrInput>
   `,
   mounted () {
     document.body.parentElement.setAttribute('data-fr-theme', this.dark ? 'dark' : 'light')

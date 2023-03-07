@@ -38,6 +38,10 @@ export default defineComponent({
       type: String,
       default: undefined,
     },
+    fullWidth: {
+      type: Boolean,
+      default: false
+    }
   },
 
   emits: [
@@ -112,7 +116,7 @@ export default defineComponent({
     >
       <div class="fr-container fr-container--fluid fr-container-md">
         <div class="fr-grid-row fr-grid-row--center">
-          <div class="fr-col-12 fr-col-md-10 fr-col-lg-8">
+          <div :class="fullWidth ? '' : 'fr-col-12 fr-col-md-10 fr-col-lg-8'">
             <div class="fr-modal__body">
               <div class="fr-modal__header">
                 <button

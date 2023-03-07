@@ -98,6 +98,10 @@ export default defineComponent({
       <slot name="hint">
       </slot>
     </template>
+    <template v-slot:icon-right>
+      <slot name="icon-right">
+      </slot>
+    </template>
 
     </DsfrInput>
 
