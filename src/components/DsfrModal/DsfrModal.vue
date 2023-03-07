@@ -30,6 +30,14 @@ export default defineComponent({
       type: String,
       required: true,
     },
+    secondTitle: {
+      type: String,
+      default: '',
+    },
+    icon: {
+      type: String,
+      default: undefined,
+    },
   },
 
   emits: [
@@ -104,7 +112,7 @@ export default defineComponent({
     >
       <div class="fr-container fr-container--fluid fr-container-md">
         <div class="fr-grid-row fr-grid-row--center">
-          <div class="fr-col-12 fr-col-md-8 fr-col-lg-6">
+          <div class="fr-col-12 fr-col-md-10 fr-col-lg-8">
             <div class="fr-modal__body">
               <div class="fr-modal__header">
                 <button
@@ -126,7 +134,16 @@ export default defineComponent({
                   id="fr-modal-title-modal-1"
                   class="fr-modal__title"
                 >
+                  <span
+                    v-if="icon"
+                  >
+                    <VIcon
+                      :name="icon"
+                      scale="2"
+                    />
+                  </span>
                   {{ title }}
+                  <span class="second-title"> {{ secondTitle }}</span>
                 </h1>
                 <!-- @slot Slot par défaut pour le contenu de la liste. Sera dans `<ul class="fr-modal__title">` -->
                 <slot />
@@ -161,5 +178,9 @@ export default defineComponent({
 <style>
 body.modal-open {
   overflow: hidden;
+}
+.second-title {
+  color: #A6A6A6;
+  font-size: 1.2rem;
 }
 </style>

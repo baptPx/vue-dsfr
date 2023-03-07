@@ -9,6 +9,7 @@ import postcssNested from 'postcss-nested'
 import postcssFlexbugsFixes from 'postcss-flexbugs-fixes'
 import postcssPresetEnv from 'postcss-preset-env'
 import csso from 'postcss-csso'
+import url from 'postcss-url'
 
 const postcssPlugins = [
   atImport(),
@@ -25,6 +26,11 @@ const postcssPlugins = [
     },
   }),
   csso(),
+  url({
+    url: "inline", // enable inline assets using base64 encoding
+    maxSize: 10, // maximum file size to inline (in kilobytes)
+    fallback: "copy", // fallback method to use if max size is exceeded
+  }),
 ]
 
 const baseOutput = {

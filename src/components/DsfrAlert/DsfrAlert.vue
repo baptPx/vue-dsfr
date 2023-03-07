@@ -80,6 +80,7 @@ export default defineComponent({
           {{ title }}
         </p>
         <p class="fr-alert__description">
+          <slot></slot>
           {{ description }}
         </p>
       </div>

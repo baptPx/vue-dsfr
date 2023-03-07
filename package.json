@@ -1,6 +1,6 @@
 {
-  "name": "@gouvminint/vue-dsfr",
-  "version": "1.0.0",
+  "name": "@thales/vue-dsfr",
+  "version": "1.0.44",
   "files": [
     "dist",
     "types",
@@ -30,8 +30,7 @@
     }
   },
   "publishConfig": {
-    "@gouvminint:registry": "https://registry.npmjs.com",
-    "access": "public"
+    "registry": "http://localhost:8081/repository/npm-private"
   },
   "scripts": {
     "docs:dev": "vuepress dev docs",
@@ -55,7 +54,7 @@
     "test:ct-ci": "cypress run --component",
     "format": "npm run lint -- --fix",
     "lint": "eslint ./src/**/*.{vue,js}",
-    "storybook": "cross-env NODE_OPTIONS=--openssl-legacy-provider start-storybook -p 6006",
+    "storybook": "cross-env start-storybook -p 6006",
     "build-storybook": "NODE_OPTIONS=--openssl-legacy-provider build-storybook",
     "preview": "run-s build-storybook",
     "view": "vite serve storybook-static",
@@ -67,10 +66,11 @@
     "vue-tsc": "vue-tsc --declaration --emitDeclarationOnly"
   },
   "dependencies": {
-    "@gouvfr/dsfr": "~1.7.2",
+    "@gouvfr/dsfr": "~1.8.5",
     "focus-trap": "~6.7.0",
     "focus-trap-vue": "^3.3.1",
     "oh-vue-icons": "1.0.0-rc3",
+    "rollup": "^3.3.0",
     "vue": "^3.2.39"
   },
   "devDependencies": {

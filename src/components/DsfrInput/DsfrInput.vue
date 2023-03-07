@@ -25,7 +25,6 @@ export default defineComponent({
     },
     isInvalid: Boolean,
     isValid: Boolean,
-    isTextarea: Boolean,
     isWithWrapper: Boolean,
     label: {
       type: String,
@@ -44,16 +43,20 @@ export default defineComponent({
       type: String,
       default: '',
     },
-  },
+    icon: {
+      type: String,
+      default: undefined
+    }
 
+  },
   emits: ['update:modelValue'],
 
   computed: {
     isComponent () {
-      return this.isTextarea ? 'textarea' : 'input'
+      return this.$attrs.type && this.$attrs.type.toLowerCase() === 'textarea' ? 'textarea' : 'input'
     },
     wrapper () {
-      return this.isWithWrapper || this.$attrs.type === 'date' || !!this.wrapperClass
+      return this.isWithWrapper || this.$attrs.type && this.$attrs.type.toLowerCase() === 'date' || !!this.wrapperClass
     },
     finalLabelClass () {
       return [
@@ -87,32 +90,19 @@ export default defineComponent({
       v-if="hint"
       class="fr-hint-text"
     >{{ hint }}</span>
+    <span class="fr-hint-text">
+      
+      <slot name="hint">
+      </slot>
+    </span>
   </label>
 
-  <component
-    :is="isComponent"
-    v-if="!wrapper"
-    :id="id"
-    class="fr-input"
-    :class="{
-      'fr-input--error': isInvalid,
-      'fr-input--valid': isValid,
-    }"
-    :value="modelValue"
-    v-bind="$attrs"
-    :aria-aria-describedby="descriptionId || undefined"
-    @input="$emit('update:modelValue', $event.target.value)"
-  />
+  <div class="warp-component">
+    <VIcon v-if="icon" :name="icon" class="input-icon"></VIcon>
 
-  <div
-    v-else
-    :class="[
-      { 'fr-input-wrap': isWithWrapper || $attrs.type === 'date' },
-      wrapperClass,
-    ]"
-  >
     <component
       :is="isComponent"
+      v-if="!wrapper"
       :id="id"
       class="fr-input"
       :class="{
@@ -124,13 +114,49 @@ export default defineComponent({
       :aria-aria-describedby="descriptionId || undefined"
       @input="$emit('update:modelValue', $event.target.value)"
     />
+    <div
+      v-else
+      :class="[
+        { 'fr-input-wrap': isWithWrapper || $attrs.type === 'date' },
+        wrapperClass,
+      ]"
+    >
+      <component
+        :is="isComponent"
+        :id="id"
+        class="fr-input"
+        :class="{
+          'fr-input--error': isInvalid,
+          'fr-input--valid': isValid,
+        }"
+        :value="modelValue"
+        v-bind="$attrs"
+        :aria-aria-describedby="descriptionId || undefined"
+        @input="$emit('update:modelValue', $event.target.value)"
+      />
+
+    </div>
   </div>
 </template>
 
 <style src="@gouvfr/dsfr/dist/component/input/input.main.min.css" />
 
 <style scoped>
-.invisible {
+.input-icon {
+  position: absolute;
+  right: 1rem;
+  top: 0.6rem;
+}
+.warp-component {
+  position: relative;
+  width: 100%;
+}
+@-moz-document url-prefix() {
+  input[type="date"] {
+    padding-right: 2.2rem;
+  }
+}
+/* .invisible {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -141,4 +167,16 @@ export default defineComponent({
   white-space: nowrap;
   border: 0;
 }
+input[type="date"]::-webkit-calendar-picker-indicator {
+    background: transparent;
+    bottom: 0;
+    color: transparent;
+    cursor: pointer;
+    height: auto;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: auto;
+} */
 </style>

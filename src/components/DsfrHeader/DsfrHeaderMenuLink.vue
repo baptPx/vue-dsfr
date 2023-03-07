@@ -69,7 +69,7 @@ export default defineComponent({
       return this.to || this.path
     },
     linkData () {
-      return this.actualTo ? { to: this.actualTo } : { href: this.actualHref }
+      return this.actualTo ? { to: this.actualTo } : { href: this.actualHref, target: '_blank' }
     },
   },
 })

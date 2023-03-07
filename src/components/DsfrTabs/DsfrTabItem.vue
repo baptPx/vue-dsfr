@@ -67,3 +67,12 @@ export default defineComponent({
     </button>
   </li>
 </template>
+<style>
+.fr-tabs__tab[aria-selected="true"] {
+  margin-bottom: px !important
+}
+.fr-tabs__tab[aria-selected="false"] {
+  margin-bottom: 0px !important;
+  border-bottom: 3px solid white;
+}
+</style>

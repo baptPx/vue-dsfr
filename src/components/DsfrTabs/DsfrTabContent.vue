@@ -57,4 +57,7 @@ const translateValueTo = computed(() => values[!props.asc])
   transform: translateX(v-bind(translateValueTo));
   opacity: 0;
 }
+.fr-tabs__panel {
+  border: 1px solid #e6e6e6;
+}
 </style>

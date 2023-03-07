@@ -61,6 +61,10 @@ export default {
       control: 'boolean',
       description: 'Signale si le champ est en état d’erreur (`true`) ou non (`false`, par défaut)',
     },
+    icon: {
+      control: 'text',
+      description: 'icone à afficher sur la droite du champ'
+    }
   },
 }
 
@@ -82,11 +86,15 @@ export const ChampEnErreur = (args) => ({
       :model-value="modelValue"
       :type="type"
       :label="label"
-      :hint="hint"
       :label-visible="labelVisible"
       :placeholder="placeholder"
       :is-invalid="isInvalid"
-      />
+      :hint="hint"
+      :icon="icon"
+      >
+      <template v-slot:hint>
+      </template>
+    </DsfrInputGroup>
   `,
   mounted () {
     document.body.parentElement.setAttribute('data-fr-theme', this.dark ? 'dark' : 'light')

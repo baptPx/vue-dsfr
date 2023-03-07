@@ -128,3 +128,9 @@ export default defineComponent({
 </template>
 
 <style src="@gouvfr/dsfr/dist/component/tab/tab.main.min.css" />
+<style>
+ul {
+  /* border-bottom: 1px solid #e6e6e6; */
+  padding-bottom: 1px !important;
+}
+</style>

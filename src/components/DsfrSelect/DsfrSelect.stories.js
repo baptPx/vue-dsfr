@@ -28,6 +28,10 @@ export default {
       control: 'text',
       description: 'Description optionnelle du `select`',
     },
+    placeholder: {
+      control: 'text',
+      description: 'Description optionnelle du `select`',
+    },
     successMessage: {
       control: 'text',
       description: 'Message à afficher en situation de succès, sa présence change la couleur de la police d’écriture',
@@ -104,7 +108,7 @@ ListeDeroulante.args = {
   successMessage: '',
   errorMessage: '',
   disabled: false,
-  modelValue: 'Option 2',
+  modelValue: '',
   required: false,
 }
 
