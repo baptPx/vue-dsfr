@@ -40,6 +40,10 @@ export default {
     close: {
       description: 'Événement déclenché à la fermeture de la modale',
     },
+    
+    fullWidth: {
+      description: 'La modal doit elle prendre toute la largeur ?',
+    },
     onClick: {
       action: 'close',
     },
@@ -73,6 +77,7 @@ export const Modal = (args) => ({
       :icon="icon"
       :title="title"
       :secondTitle="secondTitle"
+      :full-width="fullWidth"
       :origin="$refs.modalOrigin"
       @close="onClose()"
     >

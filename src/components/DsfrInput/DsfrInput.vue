@@ -99,7 +99,9 @@ export default defineComponent({
 
   <div class="warp-component">
     <VIcon v-if="icon" :name="icon" class="input-icon"></VIcon>
-
+    <div class="input-icon"  >
+      <slot name="icon-right"></slot>
+    </div>
     <component
       :is="isComponent"
       v-if="!wrapper"
@@ -150,6 +152,9 @@ export default defineComponent({
 .warp-component {
   position: relative;
   width: 100%;
+}
+input:not([type="date"]):not([type="number"]) {
+  padding-right: 3rem
 }
 @-moz-document url-prefix() {
   input[type="date"] {

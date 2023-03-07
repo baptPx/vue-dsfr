@@ -90,7 +90,6 @@ export const ChampEnErreur = (args) => ({
       :placeholder="placeholder"
       :is-invalid="isInvalid"
       :hint="hint"
-      :icon="icon"
       >
       <template v-slot:hint>
       </template>
