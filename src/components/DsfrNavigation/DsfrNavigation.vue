@@ -34,23 +34,51 @@ export default defineComponent({
       default: () => [],
     },
   },
-
+  emits: ['linkClick'],
   data () {
     return {
       expandedMenuId: undefined,
     }
   },
-
+  mounted () {
+    document.addEventListener('click', this.onDocumentClick)
+    document.addEventListener('keydown', this.onKeyDown)
+  },
+  unmounted () {
+    document.removeEventListener('click', this.onDocumentClick)
+    document.removeEventListener('keydown', this.onKeyDown)
+  },
   methods: {
     toggle (id) {
       if (id === this.expandedMenuId) {
         this.expandedMenuId = undefined
+        // this.$emit('linkClick')
         return
       }
+      console.log('toggle with', id)
       this.expandedMenuId = id
     },
+    onDocumentClick (e) {
+      this.handleElementClick(e.target)
+    },
+    onKeyDown (e) {
+      if (e.key === 'Escape') {
+        this.toggle(this.expandedMenuId)
+      }
+    },
+    handleElementClick (el) {
+      if (el === document.getElementById(this.id)) {
+        return
+      }
+      
+      if (!el?.parentNode) {
+        this.toggle(this.expandedMenuId)
+        return
+      }
+      
+      this.handleElementClick(el.parentNode)
+    },
   },
-
 })
 </script>
 
@@ -72,29 +100,35 @@ export default defineComponent({
           v-if="navItem.to && navItem.text"
           v-bind="navItem"
           :expanded-id="expandedMenuId"
-          @click="toggle($event)"
+          @click="toggle($event); $emit('linkClick') "
         />
         <DsfrNavigationMenu
           v-else-if="navItem.title && navItem.links"
           v-bind="navItem"
           :expanded-id="expandedMenuId"
           @toggle-id="toggle($event)"
+          @link-click="$emit('linkClick')"
         />
         <DsfrNavigationMegaMenu
           v-else-if="navItem.title && navItem.menus"
           v-bind="navItem"
           :expanded-id="expandedMenuId"
           @toggle-id="toggle($event)"
+          @link-click="$emit('linkClick')"
         />
       </DsfrNavigationItem>
     </ul>
   </nav>
 </template>
 
-<style src="@gouvfr/dsfr/dist/component/navigation/navigation.main.min.css" />
-
-<style scoped>
+<style>
 .fr-nav__list {
   position: relative;
 }
+
+.fr-menu.fr-collapse--expanded {
+  --collapse-max-height: none;
+}
 </style>
+
+<style src="@gouvfr/dsfr/dist/component/navigation/navigation.main.min.css" />

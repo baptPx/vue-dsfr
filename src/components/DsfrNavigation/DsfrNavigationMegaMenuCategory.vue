@@ -20,11 +20,12 @@ export default defineComponent({
       required: true,
     },
   },
+  emits: ['linkClick']
 })
 </script>
 
 <template>
-  <div class="fr-col-12 fr-col-md-3">
+  <div class="fr-col-12 fr-col-lg-3">
     <h5 class="fr-mega-menu__category">
       <a
         class="fr-nav__link"
@@ -38,10 +39,11 @@ export default defineComponent({
       <li
         v-for="(link, idx) of links"
         :key="idx"
-        class="fr-mega-menu__item"
+        class="fr-nav__link"
       >
         <DsfrNavigationMenuLink
           v-bind="link"
+          @link-click="$emit('linkClick')"
         />
       </li>
     </ul>

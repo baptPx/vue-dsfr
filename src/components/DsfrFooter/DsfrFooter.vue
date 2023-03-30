@@ -212,7 +212,7 @@ export default defineComponent({
           >
             <!-- @slot Slot #description pour le contenu de la description du footer. Sera dans `<p class="fr-footer__content-desc">` -->
             <slot name="description">
-              {{ descText }}
+              {{ descText }} 
             </slot>
           </p>
           <ul class="fr-footer__content-list">
@@ -235,7 +235,7 @@ export default defineComponent({
         v-if="partners"
         v-bind="partners"
       />
-      <div class="fr-footer__bottom">
+      <!-- <div class="fr-footer__bottom">
         <ul class="fr-footer__bottom-list">
           <li
             v-for="(link, index) in allLinks"
@@ -254,24 +254,9 @@ export default defineComponent({
         <div class="fr-footer__bottom-copy">
           <p>
             {{ licenceText }}
-            <component
-              :is="isExternalLink ? 'a' : 'router-link'"
-              class="fr-link-licence  no-content-after"
-              :to="routerLinkLicenceTo"
-              :href="aLicenceHref"
-              target="_blank"
-              rel="noopener noreferrer"
-              v-bind="licenceLinkProps"
-            >
-              {{ licenceName }}
-              <VIcon
-                v-if="isExternalLink"
-                name="ri-external-link-line"
-              />
-            </component>
           </p>
         </div>
-      </div>
+      </div> -->
     </div>
   </footer>
 </template>
@@ -281,6 +266,17 @@ export default defineComponent({
 <style scoped>
 .fr-footer {
   color: var(--text-default-grey);
+  box-shadow: inset 0 2px 0 0 var(--border-plain-blue-france) !important;
+}
+.fr-footer__body {
+  display: block !important;
+}
+.fr-footer__brand {
+  display: inline-block !important;
+}
+.fr-footer__content {
+  display: inline-block !important;
+  float: right;
 }
 .no-content-after {
   --link-blank-content: '';

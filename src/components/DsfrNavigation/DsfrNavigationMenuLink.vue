@@ -20,7 +20,7 @@ export default defineComponent({
     },
   },
 
-  emits: ['toggle-id'],
+  emits: ['toggle-id', 'linkClick'],
 
   computed: {
     isExternal () {
@@ -36,17 +36,17 @@ export default defineComponent({
     class="fr-nav__link"
     data-testid="nav-external-link"
     :href="to"
-    @click="$emit('toggle-id', id)"
+    @click="$emit('toggle-id', id); $emit('linkClick')"
   >
     {{ text }}
   </a>
-  <router-link
+  <RouterLink
     v-else
     class="fr-nav__link"
     data-testid="nav-router-link"
     :to="to"
-    @click="$emit('toggle-id', id)"
+    @click="$emit('toggle-id', id); $emit('linkClick')"
   >
     {{ text }}
-  </router-link>
+  </RouterLink>
 </template>

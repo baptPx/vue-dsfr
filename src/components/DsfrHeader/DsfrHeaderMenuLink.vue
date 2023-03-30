@@ -10,7 +10,7 @@ export default defineComponent({
   },
 
   props: {
-    /* @deprecated Utiliser `to` ou `href` à la place */
+    /** @deprecated Utiliser `to` ou `href` à la place */
     path: {
       type: [String, Object],
       default: undefined,
@@ -21,8 +21,8 @@ export default defineComponent({
       default: undefined,
     },
     iconAttrs: {
-      type: String,
-      default: undefined,
+      type: Object,
+      default: () => {},
     },
     iconRight: Boolean,
     label: {
@@ -41,6 +41,10 @@ export default defineComponent({
       type: String,
       default: undefined,
     },
+    target: {
+      type: String,
+      default: '_self',
+    },
   },
 
   computed: {
@@ -48,7 +52,7 @@ export default defineComponent({
       if (this.button) {
         return 'button'
       }
-      return this.isExternalLink ? 'a' : 'router-link'
+      return this.isExternalLink ? 'a' : 'RouterLink'
     },
     isPathString () {
       return typeof this.path === 'string'
@@ -69,7 +73,7 @@ export default defineComponent({
       return this.to || this.path
     },
     linkData () {
-      return this.actualTo ? { to: this.actualTo } : { href: this.actualHref, target: '_blank' }
+      return this.actualTo ? { to: this.actualTo } : { href: this.actualHref }
     },
   },
 })
@@ -78,8 +82,9 @@ export default defineComponent({
 <template>
   <component
     :is="is"
-    class="fr-btn"
+    class="fr-btn quickLink"
     v-bind="linkData"
+    :target="target"
     @click.stop="onClick"
   >
     <VIcon
@@ -99,3 +104,14 @@ export default defineComponent({
     />
   </component>
 </template>
+<style>
+@media (max-width: 62em) {
+  .quickLink {
+    justify-content: left !important;
+    padding-left: 0.75rem !important;
+    border-bottom: 1px solid #e6e6e6;
+    font-size: 1rem !important;
+    line-height: 2.2rem !important;
+  }
+}
+</style>

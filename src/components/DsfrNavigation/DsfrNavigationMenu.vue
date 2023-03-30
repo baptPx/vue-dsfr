@@ -34,7 +34,7 @@ export default defineComponent({
     },
   },
 
-  emits: ['toggle-id'],
+  emits: ['toggle-id', 'linkClick'],
 
   computed: {
     expanded () {
@@ -68,7 +68,7 @@ export default defineComponent({
       >
         <DsfrNavigationMenuLink
           v-bind="link"
-          @click="link.onClick"
+          @click="link.onClick, $emit('link-click')"
           @toggle-id="$emit('toggle-id', expandedId)"
         />
       </DsfrNavigationMenuItem>

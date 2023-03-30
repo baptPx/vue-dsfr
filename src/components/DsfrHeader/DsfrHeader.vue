@@ -1,6 +1,5 @@
 <script>
 import { defineComponent } from 'vue'
-import { OhVueIcon as VIcon } from 'oh-vue-icons'
 
 // Pose problème dans les tests, et risque fort de poser problème dans Nuxt
 // import '@gouvfr/dsfr/dist/component/header/header.module.js'
@@ -8,6 +7,7 @@ import { OhVueIcon as VIcon } from 'oh-vue-icons'
 import DsfrLogo from '../DsfrLogo/DsfrLogo.vue'
 import DsfrSearchBar from '../DsfrSearchBar/DsfrSearchBar.vue'
 import DsfrHeaderMenuLinks from './DsfrHeaderMenuLinks.vue'
+import DsfrNavigation from '../DsfrNavigation/DsfrNavigation.vue'
 
 export default defineComponent({
   name: 'DsfrHeader',
@@ -16,7 +16,7 @@ export default defineComponent({
     DsfrLogo,
     DsfrHeaderMenuLinks,
     DsfrSearchBar,
-    VIcon,
+    DsfrNavigation
   },
 
   props: {
@@ -64,6 +64,14 @@ export default defineComponent({
       type: String,
       default: 'Recherche',
     },
+    quickLinksAriaLabel: {
+      type: String,
+      default: 'Menu secondaire',
+    },
+    navItems:{
+      type: Array,
+      default: () => [],
+    },
     showSearch: Boolean,
   },
 
@@ -83,21 +91,37 @@ export default defineComponent({
     },
   },
 
+  mounted () {
+    document.addEventListener('keydown', this.onKeyDown)
+  },
+  unmounted () {
+    document.removeEventListener('keydown', this.onKeyDown)
+  },
   methods: {
     hideModal () {
       this.modalOpened = false
       this.menuOpened = false
       this.searchModalOpened = false
+      document.getElementById('button-menu')?.focus()
     },
     showMenu () {
       this.modalOpened = true
       this.menuOpened = true
       this.searchModalOpened = false
+      document.getElementById('close-button')?.focus()
     },
     showSearchModal () {
       this.modalOpened = true
       this.menuOpened = false
       this.searchModalOpened = true
+    },
+    onKeyDown (e) {
+      if (e.key === 'Escape') {
+        this.hideModal()
+      }
+    },
+    onQuickLinkClick () {
+      this.hideModal()
     },
   },
 })
@@ -108,6 +132,10 @@ export default defineComponent({
     role="banner"
     class="fr-header"
   >
+      <!-- <hr 
+        v-if="navItems.length > 0"
+        class="navItemsBar"
+        > -->
     <div class="fr-header__body">
       <div class="fr-container  width-inherit">
         <div class="fr-header__body-row">
@@ -140,17 +168,13 @@ export default defineComponent({
               >
                 <button
                   v-if="showSearch"
-                  class="fr-btn"
+                  class="fr-btn  fr-btn--search"
                   aria-controls="header-search"
                   aria-label="Recherche"
                   title="Recherche"
                   :data-fr-opened="showSearchModal"
                   @click="showSearchModal"
-                >
-                  <VIcon
-                    name="ri-search-line"
-                  />
-                </button>
+                />
                 <button
                   v-if="quickLinks?.length"
                   id="button-menu"
@@ -169,7 +193,7 @@ export default defineComponent({
               v-if="serviceTitle"
               class="fr-header__service"
             >
-              <router-link
+              <RouterLink
                 :to="homeTo"
                 :title="`Accueil - ${serviceTitle}`"
                 v-bind="$attrs"
@@ -177,7 +201,7 @@ export default defineComponent({
                 <p class="fr-header__service-title">
                   {{ serviceTitle }}
                 </p>
-              </router-link>
+              </RouterLink>
               <p
                 v-if="serviceDescription"
                 class="fr-header__service-tagline"
@@ -191,10 +215,13 @@ export default defineComponent({
               v-if="quickLinks && quickLinks.length"
               class="fr-header__tools-links"
             >
-              <DsfrHeaderMenuLinks
-                v-if="!menuOpened"
-                :links="quickLinks"
-              />
+              <nav role="navigation">
+                <DsfrHeaderMenuLinks
+                  v-if="!menuOpened"
+                  :links="quickLinks"
+                  :nav-aria-label="quickLinksAriaLabel"
+                />
+              </nav>
             </div>
             <div
               v-if="showSearch"
@@ -216,10 +243,13 @@ export default defineComponent({
           id="header-navigation"
           class="fr-header__menu  fr-modal"
           :class="{ 'fr-modal--opened': modalOpened }"
-          aria-labelledby="button-menu"
+          aria-label="Menu modal"
+          role="dialog"
+          aria-modal="true"
         >
           <div class="fr-container">
             <button
+              id="close-button"
               class="fr-btn fr-btn--close"
               aria-controls="header-navigation"
               data-testid="close-modal-btn"
@@ -228,10 +258,19 @@ export default defineComponent({
               Fermer
             </button>
             <div class="fr-header__menu-links">
-              <DsfrHeaderMenuLinks
-                v-if="menuOpened"
-                :links="quickLinks"
-              />
+              <nav role="navigation">
+                <DsfrHeaderMenuLinks
+                  v-if="menuOpened"
+                  role="navigation"
+                  :links="quickLinks"
+                  :nav-aria-label="quickLinksAriaLabel"
+                  @link-click="onQuickLinkClick"
+                />
+                <DsfrNavigation
+                  :nav-items="navItems"
+                  @link-click="onQuickLinkClick"
+                />
+              </nav>
             </div>
             <div
               v-if="searchModalOpened"
@@ -246,9 +285,64 @@ export default defineComponent({
             </div>
           </div>
         </div>
+        <slot />
+  
       </div>
     </div>
   </header>
+  <div class="desktop-navigation">
+    <div class="desktop-navigation-content">
+
+      <DsfrNavigation
+        :nav-items="navItems"
+      />
+    </div>
+  </div>
 </template>
 
 <style src="@gouvfr/dsfr/dist/component/header/header.main.min.css" />
+<style scoped>
+
+@media (max-width: 62em) {
+  .desktop-navigation {
+    display:none;
+  }
+  .navItemsBar {
+    display: none;
+  }
+}
+
+@media (min-width: 62em) {
+  .navItemsBar {
+    
+    width: 100%;
+    border-bottom: 1px solid #E5E5E5;
+    position: absolute;
+    bottom: 3.5rem;
+  }
+  .desktop-navigation {
+    position: sticky;
+    top: 0;
+    filter: drop-shadow(0 1px 3px rgba(0,0,18,.16));
+    background: #fff;
+    padding-left: 1rem;
+    z-index: 10;
+  }
+  .desktop-navigation-content {
+    max-width: 78rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .fr-header {
+    /* box-shadow: inset 0 1px 0 0 var(--border-default-grey); */
+    filter: none;
+    border-bottom: 1px solid #E5E5E5 ;
+  }
+}
+@media (min-width: 78rem) {
+  .desktop-navigation {
+    padding-left: 3rem;
+
+  }
+}
+</style>
