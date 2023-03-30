@@ -55,7 +55,6 @@ export default defineComponent({
         // this.$emit('linkClick')
         return
       }
-      console.log('toggle with', id)
       this.expandedMenuId = id
     },
     onDocumentClick (e) {
