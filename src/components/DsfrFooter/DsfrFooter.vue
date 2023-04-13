@@ -267,6 +267,7 @@ export default defineComponent({
 .fr-footer {
   color: var(--text-default-grey);
   box-shadow: inset 0 2px 0 0 var(--border-plain-blue-france) !important;
+  padding-top: 1rem !important;
 }
 .fr-footer__body {
   display: block !important;

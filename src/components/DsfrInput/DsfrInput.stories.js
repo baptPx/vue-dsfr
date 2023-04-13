@@ -100,13 +100,11 @@ export const ChampSansLabel = (args) => ({
     <DsfrInput
       value="123"
       :type="type"
+      icon="ri-external-link-line"
     >
-    <template v-slot:icon-right>
-    <p>mytINPUT</p>
-      <VIcon name="ri-search-line" class="myicon" style="cursor:pointer;"></VIcon>
-    </template>
+
     </DsfrInput>
-  `,
+    `,
   mounted () {
     document.body.parentElement.setAttribute('data-fr-theme', this.dark ? 'dark' : 'light')
   },

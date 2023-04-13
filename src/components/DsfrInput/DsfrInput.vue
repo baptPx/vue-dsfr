@@ -98,10 +98,12 @@ export default defineComponent({
   </label>
 
   <div class="warp-component">
-    <VIcon v-if="icon" :name="icon" class="input-icon"></VIcon>
     <div class="input-icon"  >
-      <slot name="icon-right"></slot>
+      <slot name="icon-right">
+        <VIcon v-if="icon" :name="icon" class="input-icon"></VIcon>
+      </slot>
     </div>
+
     <component
       :is="isComponent"
       v-if="!wrapper"
